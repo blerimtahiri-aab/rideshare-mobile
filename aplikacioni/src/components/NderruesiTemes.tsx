@@ -1,8 +1,27 @@
 "use client";
 
+import { useEffect } from "react";
+
 // Ikona që shfaqet zgjidhet në CSS nga atributi data-theme i <html>,
 // prandaj komponenti nuk ka nevojë për gjendje.
 export function NderruesiTemes() {
+  // Te faqja 404 React e rindërton <html> dhe atributi i vendosur nga skripti
+  // i layout.tsx humbet, prandaj e rivendosim këtu nëse mungon.
+  useEffect(() => {
+    const html = document.documentElement;
+    if (html.getAttribute("data-theme")) return;
+    let tema: string | null = null;
+    try {
+      tema = localStorage.getItem("theme");
+    } catch {}
+    if (tema !== "light" && tema !== "dark") {
+      tema = matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    html.setAttribute("data-theme", tema);
+  }, []);
+
   function nderroTemen() {
     const html = document.documentElement;
     const eRe = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
