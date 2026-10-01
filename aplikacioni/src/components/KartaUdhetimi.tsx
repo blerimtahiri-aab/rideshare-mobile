@@ -9,6 +9,7 @@ export function KartaUdhetimi({ udhetim }: { udhetim: Udhetim }) {
       </h2>
       <p className="trip-meta">
         <span>Ora {udhetim.ora}</span>
+        <span>Shoferi: {udhetim.shoferi}</span>
         <span className={udhetim.vende > 0 ? "badge" : "badge full"}>
           {tekstiVendeve(udhetim.vende)}
         </span>

@@ -22,6 +22,10 @@ export default async function Detajet({
       </h1>
       <dl className="details">
         <div>
+          <dt>Shoferi</dt>
+          <dd>{udhetim.shoferi}</dd>
+        </div>
+        <div>
           <dt>Ora</dt>
           <dd>{udhetim.ora}</dd>
         </div>

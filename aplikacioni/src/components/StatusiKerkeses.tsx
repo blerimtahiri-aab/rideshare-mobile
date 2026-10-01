@@ -33,7 +33,8 @@ export function StatusiKerkeses({ udhetim }: { udhetim: Udhetim }) {
     <>
       <h1>Simulim: Në pritje</h1>
       <p className="lead" role="status">
-        Kërkesa për {udhetim.nisja} nuk është dërguar te shoferi.
+        Kërkesa për {udhetim.nisja} nuk është dërguar te shoferi{" "}
+        {udhetim.shoferi}.
       </p>
       <p className="lead">
         Ruajtjen dhe konfirmimin real do t’i shtojmë më vonë.

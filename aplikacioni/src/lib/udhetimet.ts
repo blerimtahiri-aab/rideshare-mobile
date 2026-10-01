@@ -1,5 +1,6 @@
 export type Udhetim = {
   id: string;
+  shoferi: string;
   nisja: string;
   destinacioni: string;
   ora: string;
@@ -11,6 +12,7 @@ export type Udhetim = {
 export const udhetimet: Udhetim[] = [
   {
     id: "1",
+    shoferi: "Dren K.",
     nisja: "Prishtinë",
     destinacioni: "AAB",
     ora: "08:00",
@@ -19,6 +21,7 @@ export const udhetimet: Udhetim[] = [
   },
   {
     id: "2",
+    shoferi: "Liridona H.",
     nisja: "Fushë Kosovë",
     destinacioni: "AAB",
     ora: "08:15",
@@ -27,6 +30,7 @@ export const udhetimet: Udhetim[] = [
   },
   {
     id: "3",
+    shoferi: "Valon B.",
     nisja: "Lipjan",
     destinacioni: "AAB",
     ora: "07:45",
