@@ -1,9 +1,5 @@
 # RideShare — Java 4 · Neon dhe PostgreSQL
 
-Ruaje këtë skedar si java-04.md pranë README, jashtë aplikacioni/.
-Plotëso të gjitha përgjigjet; hiqi shenjat [PLOTËSO].
-Mos vendos DATABASE_URL, pamje të kredencialeve ose të dhëna reale.
-
 ## Çfarë ndërtova
 Vargu fiks i udhëtimeve nga Java 3 u zëvendësua me tabelën `udhetimet` në Neon (PostgreSQL). Lista (/) thërret `lexoUdhetimet()`, ndërsa detajet (/udhetimi/[id]) dhe kërkesa (/udhetimi/[id]/kerkesa) thërrasin `gjejUdhetimin(id)`, ku ID kalon si parametër te driver-i Neon, jo si tekst i bashkuar me SQL. Të gjitha leximet bëhen në server me `await`; `DATABASE_URL` lexohet vetëm në `src/lib/db.ts`, i mbrojtur me `server-only`. Faqet kanë `force-dynamic`, prandaj çdo hapje ose rifreskim e pyet databazën përsëri. Ruajta edhe kolonën `shoferi` dhe anulimin e kërkesës nga Java 3.
 
