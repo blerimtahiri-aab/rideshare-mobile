@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { OraUdhetimit } from "@/components/OraUdhetimit";
 import { StatusiKerkeses } from "@/components/StatusiKerkeses";
+import { profiliIm } from "@/lib/lejet";
 import { gjejUdhetimin, type Udhetim } from "@/lib/udhetimet";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +14,13 @@ export default async function Kerkesa({
 }) {
   const { id } = await params;
   let udhetim: Udhetim | undefined;
+  let brenda: boolean;
   try {
-    udhetim = await gjejUdhetimin(id);
+    // Kërkesa për vend lejohet vetëm me llogari; kontrolli bëhet në server.
+    [udhetim, brenda] = await Promise.all([
+      gjejUdhetimin(id),
+      profiliIm().then(Boolean),
+    ]);
   } catch {
     return (
       <main>
@@ -28,6 +35,9 @@ export default async function Kerkesa({
     );
   }
 
+  // redirect qëndron jashtë try/catch: Next.js e përdor si kontroll rrjedhe.
+  // Pas hyrjes, paneli e kthen përdoruesin te kjo kërkesë.
+  if (!brenda) redirect(`/panel?m=kerkesa&prapa=/udhetimi/${encodeURIComponent(id)}/kerkesa`);
   if (!udhetim) notFound();
 
   return (
@@ -39,7 +49,9 @@ export default async function Kerkesa({
         <span>
           {udhetim.nisja} → {udhetim.destinacioni}
         </span>
-        <span>Ora {udhetim.ora}</span>
+        <span>
+          Ora <OraUdhetimit udhetim={udhetim} />
+        </span>
       </p>
       {udhetim.vende > 0 ? (
         <StatusiKerkeses udhetim={udhetim} />

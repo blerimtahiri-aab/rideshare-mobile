@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { OraUdhetimit } from "@/components/OraUdhetimit";
 import { gjejUdhetimin, type Udhetim } from "@/lib/udhetimet";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +46,9 @@ export default async function Detajet({
         </div>
         <div>
           <dt>Ora</dt>
-          <dd>{udhetim.ora}</dd>
+          <dd>
+            <OraUdhetimit udhetim={udhetim} />
+          </dd>
         </div>
         <div>
           <dt>Vendtakimi</dt>

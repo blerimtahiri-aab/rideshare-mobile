@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { NderruesiTemes } from "@/components/NderruesiTemes";
+import { ShiritiLlogarise } from "@/components/ShiritiLlogarise";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,7 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Link className="brand" href="/">
             RideShare
           </Link>
-          <NderruesiTemes />
+          <div className="top-actions">
+            <ShiritiLlogarise />
+            <NderruesiTemes />
+          </div>
         </header>
         {children}
       </body>
