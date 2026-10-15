@@ -1,3 +1,6 @@
+import "server-only";
+import { getSql } from "./db";
+
 export type Udhetim = {
   id: string;
   shoferi: string;
@@ -8,39 +11,23 @@ export type Udhetim = {
   vende: number;
 };
 
-// Të dhëna fiktive për demonstrim; asgjë nuk ruhet ose dërgohet.
-export const udhetimet: Udhetim[] = [
-  {
-    id: "1",
-    shoferi: "Dren K.",
-    nisja: "Prishtinë",
-    destinacioni: "AAB",
-    ora: "08:00",
-    vendtakimi: "Stacioni i autobusëve",
-    vende: 2,
-  },
-  {
-    id: "2",
-    shoferi: "Liridona H.",
-    nisja: "Fushë Kosovë",
-    destinacioni: "AAB",
-    ora: "08:15",
-    vendtakimi: "Te stacioni kryesor",
-    vende: 1,
-  },
-  {
-    id: "3",
-    shoferi: "Valon B.",
-    nisja: "Lipjan",
-    destinacioni: "AAB",
-    ora: "07:45",
-    vendtakimi: "Qendra e qytetit",
-    vende: 0,
-  },
-];
+// Të dhëna fiktive në Neon; aplikacioni vetëm i lexon.
+export async function lexoUdhetimet(): Promise<Udhetim[]> {
+  const sql = getSql();
+  const rows = await sql`
+    SELECT id, shoferi, nisja, destinacioni, ora, vendtakimi, vende
+    FROM udhetimet ORDER BY id
+  `;
+  return rows as Udhetim[];
+}
 
-export function gjejUdhetimin(id: string) {
-  return udhetimet.find((udhetim) => udhetim.id === id);
+export async function gjejUdhetimin(id: string): Promise<Udhetim | undefined> {
+  const sql = getSql();
+  const rows = await sql`
+    SELECT id, shoferi, nisja, destinacioni, ora, vendtakimi, vende
+    FROM udhetimet WHERE id = ${id}
+  `;
+  return rows[0] as Udhetim | undefined;
 }
 
 export function tekstiVendeve(vende: number) {

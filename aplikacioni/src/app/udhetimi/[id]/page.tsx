@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { gjejUdhetimin } from "@/lib/udhetimet";
+import { gjejUdhetimin, type Udhetim } from "@/lib/udhetimet";
+
+export const dynamic = "force-dynamic";
 
 export default async function Detajet({
   params,
@@ -8,8 +10,24 @@ export default async function Detajet({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const udhetim = gjejUdhetimin(id);
+  let udhetim: Udhetim | undefined;
+  try {
+    udhetim = await gjejUdhetimin(id);
+  } catch {
+    return (
+      <main>
+        <h1>RideShare</h1>
+        <p className="lead" role="alert">
+          Nuk u lidhëm me databazën. Provo përsëri.
+        </p>
+        <Link className="action" href="/">
+          ← Kthehu te lista
+        </Link>
+      </main>
+    );
+  }
 
+  // Mungesa e udhëtimit nuk është gabim lidhjeje, prandaj qëndron jashtë try/catch.
   if (!udhetim) notFound();
 
   return (
