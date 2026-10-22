@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { NderruesiTemes } from "@/components/NderruesiTemes";
+import Pwa from "@/components/Pwa";
 import { ShiritiLlogarise } from "@/components/ShiritiLlogarise";
 import "./globals.css";
 
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <NderruesiTemes />
           </div>
         </header>
+        <Pwa />
         {children}
       </body>
     </html>
