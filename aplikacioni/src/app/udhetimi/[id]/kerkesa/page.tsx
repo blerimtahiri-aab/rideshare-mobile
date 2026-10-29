@@ -35,10 +35,13 @@ export default async function Kerkesa({
     );
   }
 
+  // Së pari: a ekziston udhëtimi dhe a ka vende? Pa këtë, përdoruesi
+  // dërgohej te hyrja për një udhëtim që nuk ekziston ose që është plot.
+  if (!udhetim) notFound();
+
   // redirect qëndron jashtë try/catch: Next.js e përdor si kontroll rrjedhe.
   // Pas hyrjes, paneli e kthen përdoruesin te kjo kërkesë.
-  if (!brenda) redirect(`/panel?m=kerkesa&prapa=/udhetimi/${encodeURIComponent(id)}/kerkesa`);
-  if (!udhetim) notFound();
+  if (!brenda && udhetim.vende > 0) redirect(`/panel?m=kerkesa&prapa=/udhetimi/${encodeURIComponent(id)}/kerkesa`);
 
   return (
     <main>
